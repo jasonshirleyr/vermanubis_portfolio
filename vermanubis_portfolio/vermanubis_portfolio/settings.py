@@ -138,3 +138,5 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 #    os.path.join(BASE_DIR, "static"),
 #    os.path.join(BASE_DIR, "frontend/static/"),
 #  ]
+
+django_heroku.settings(locals())
