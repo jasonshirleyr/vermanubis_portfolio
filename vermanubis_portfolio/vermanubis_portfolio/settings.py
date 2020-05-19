@@ -11,16 +11,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import dj_database_url
-import psycopg2
-
-DATABASE_URL = os.environ['DATABASE_URL']
-
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -142,5 +138,3 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 #    os.path.join(BASE_DIR, "static"),
 #    os.path.join(BASE_DIR, "frontend/static/"),
 #  ]
-
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
