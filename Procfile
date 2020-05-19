@@ -1,3 +1,3 @@
 python setup.py install &&
 release: python vermanubis_portfolio/manage.py migrate
-web: web: gunicorn project.wsgi:application --log-file - --log-level debug
+web: web: gunicorn vermanubis_portfolio.wsgi:application --log-file - --log-level debug
