@@ -5,6 +5,7 @@ import "./App.css";
 import Header from "./layout/Header";
 import Parallax from "./music/Parallax";
 import About from "./music/About";
+import Music from "./music/Music";
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -15,9 +16,10 @@ class App extends React.Component {
       <Provider store={store}>
         <Fragment>
           <Header />
-          <div className="container-fluid">
+          <div className="main container-fluid">
             <Parallax />
             <About />
+            <Music />
           </div>
         </Fragment>
       </Provider>

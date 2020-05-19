@@ -6,7 +6,7 @@ import { GET_ABOUT } from "./types";
 export const getAbout = () => (dispatch) => {
   // axios rest call to get the information on the about section from the database
   axios
-    .get("/api/music/")
+    .get("/api/about/")
     .then((res) => {
       dispatch({
         type: GET_ABOUT,

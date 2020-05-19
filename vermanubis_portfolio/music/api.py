@@ -1,11 +1,11 @@
-from music.models import Music
+from music.models import About
 from rest_framework import viewsets, permissions
-from .serializers import MusicSerializer
+from .serializers import AboutSerializer
 
 # Music Viewset 
-class MusicViewSet(viewsets.ModelViewSet):
-    queryset = Music.objects.all()
+class AboutViewSet(viewsets.ModelViewSet):
+    queryset = About.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = MusicSerializer
+    serializer_class = AboutSerializer
