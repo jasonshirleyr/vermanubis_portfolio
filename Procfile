@@ -1,3 +1,3 @@
 python setup.py install &&
-release: python manage.py migrate
-web: gunicorn vermanubis_portfolio.wsgi --log-file -
+release: python vermanubis_portfolio/manage.py migrate
+web: gunicorn vermanubis_portfolio/vermanubis_portfolio.wsgi --log-file -
