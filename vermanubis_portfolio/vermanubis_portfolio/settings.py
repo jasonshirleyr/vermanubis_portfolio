@@ -26,9 +26,9 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'dp2*b!-)5$9_=cu(q@+3=up+xl_34&2crp0&$bf^dn_j$tg3@1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'localhost']
 
 # Application definition
 
@@ -131,12 +131,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-
-# STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, "static"),
-#    os.path.join(BASE_DIR, "frontend/static/"),
-#  ]
+# PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+# STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 django_heroku.settings(locals())
