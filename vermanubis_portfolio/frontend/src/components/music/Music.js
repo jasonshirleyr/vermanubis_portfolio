@@ -6,14 +6,13 @@ export class Music extends Component {
       <div className="container justify-content-center align-self-center text-center">
         <h3>MUSIC</h3>
         <iframe
-          className="music"
-          src="https://bandcamp.com/EmbeddedPlayer/track=785165219/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/"
-          seamless
-        >
-          <a href="http://nevisumbra.bandcamp.com/track/words-of-grief-and-psalms-of-new-life">
-            Words of Grief and Psalms of New Life by Vermanubis
-          </a>
-        </iframe>
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/iwmR72iFGm4"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
         <iframe
           className="music"
           src="https://bandcamp.com/EmbeddedPlayer/track=909623317/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/"
