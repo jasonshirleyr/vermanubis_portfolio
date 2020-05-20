@@ -7,7 +7,7 @@ class About(models.Model):
     
     def get_about(self):
         return self.about
-
+    
 # Music will hold songs
 # music_player_url is the url to the bandcamp player
 # bandcamp_url is the direct link to the bandcamp page the song resides
@@ -20,4 +20,4 @@ class Music(models.Model):
     last_update = models.DateTimeField(auto_now_add=True)
 
     def get_music_player_url(self):
-        return self.music_player_url
+        return self.music
