@@ -1,62 +1,63 @@
+from rest_framework.reverse import reverse
 import json
 from rest_framework import status
-from django.test import TestCase, Client
-from django.urls import reverse
+from rest_framework.test import APITestCase, APIClient
 from ..models import About
+from ..api import AboutViewSet
 from ..serializers import AboutSerializer
 
+client = APIClient()
 
-# initialize the APIClient app
-client = Client()
-
-# Test API for retrieving all about information in the About table in database
-class GetAllAboutTest(TestCase):
+class TestGetAllAbouts(APITestCase):
     def setUp(self):
-        About.objects.create(
-            about="TEST"
-        )
-        About.objects.create(
-            about="TEST2"
-        )
-        About.objects.create(
-            about="TEST3"
-        )
+        """
+        Create Abouts
+        """
+        self.about1 = About.objects.create(about="TEST")
+        self.about2 = About.objects.create(about="TEST2")
+        self.about3 = About.objects.create(about="TEST3")
     
-    # Test API for getting all info in About tabel
-    def test_get_all_about(self):
-        # get API response
-        response = client.get(reverse('get_post_about'))
-        #get data from db
+    def test_get_all_abouts(self):
+        """
+        Test to see if we can get all abouts in database
+        """
+        response = client.get(reverse('about-list'))
+        # Get objects from database
         about = About.objects.all()
         serializer = AboutSerializer(about, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-# Test API for retrieving individual about in About table in database
-class GetSingleAboutTest(TestCase):
+class TestGetIndividualAbout(APITestCase):
+    """
+    Test to see if we can get individual About Objects
+    """
     def setUp(self):
+        """
+        Create Abouts
+        """
         self.about1 = About.objects.create(about="TEST")
         self.about2 = About.objects.create(about="TEST2")
         self.about3 = About.objects.create(about="TEST3")
 
-    # test for valid retreival in about table
     def test_get_valid_single_about(self):
-        response = client.get(
-            reverse('get_delete_update_about', kwargs={'pk': self.about1.pk}))
+        """
+        Ensure we can get all About objects
+        """
+        response = client.get(reverse('about-detail', kwargs={'pk': self.about1.pk}))
         about = About.objects.get(pk=self.about1.pk)
         serializer = AboutSerializer(about)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
-    # test for invalid retreival in about table
-    def test_get_invalid_single_about(self):
-        response = client.get(
-            reverse('get_delete_update_about', kwargs={'pk': 30})
-        )
+    def test_get_invalid_about(self):
+        """
+        Ensure that invalid requests are rejected
+        """
+        response = client.get(reverse('about-detail', kwargs={'pk': 30}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-# Test API for creating new about in About table
-class CreateNewAboutTest(TestCase):
+   
+class TestCreateNewAbout(APITestCase):
 
     def setUp(self):
         self.valid_payload = {
@@ -69,7 +70,7 @@ class CreateNewAboutTest(TestCase):
         }
     def test_create_valid_about(self):
         response = client.post(
-            reverse('get_post_about'),
+            reverse('about-list'),
             data=json.dumps(self.valid_payload),
             content_type='application/json'
         )
@@ -77,14 +78,14 @@ class CreateNewAboutTest(TestCase):
     
     def test_create_invalid_about(self):
         response = client.post(
-            reverse('get_post_about'),
+            reverse('about-list'),
             data=json.dumps(self.invalid_payload),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 # Test API for updating an existing about record in About table
-class UpdateSingleAboutTest(TestCase):
+class TestUpdatingSingleAboutRecord(APITestCase):
     def setUp(self):
         self.test1 = About.objects.create(
             id=1,
@@ -103,23 +104,22 @@ class UpdateSingleAboutTest(TestCase):
 
     def test_valid_update_about(self):
         response = client.put(
-            reverse('get_delete_update_about', kwargs={'pk': self.test1.pk}),
+            reverse('about-detail', kwargs={'pk': self.test1.pk}),
             data=json.dumps(self.valid_payload),
             content_type='application/json',
         )
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_invalid_update_about(self):
         response = client.put(
-            reverse('get_delete_update_about', kwargs={'pk': self.test2.pk}),
+            reverse('about-detail', kwargs={'pk': 30}),
             data=json.dumps(self.invalid_payload),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-
 # Test API for deleting single about information in About table
-class DeleteSinglePuppyTest(TestCase):
+class TestDeleteSingleAbout(APITestCase):
     def setUp(self):
         self.about1 = About.objects.create(about="Test1")
         self.about2 = About.objects.create(about="Test2")
@@ -127,13 +127,13 @@ class DeleteSinglePuppyTest(TestCase):
     # test if delete is valid
     def test_valid_delete_about(self):
         response = client.delete(
-            reverse('get_delete_update_about', kwargs={'pk': self.about1.pk})
+            reverse('about-detail', kwargs={'pk': self.about1.pk})
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     # test for invalid deletion
     def test_invalid_delete_about(self):
         response = client.delete(
-            reverse('get_delete_update_about', kwargs={'pk': 30})
+            reverse('about-detail', kwargs={'pk': 30})
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

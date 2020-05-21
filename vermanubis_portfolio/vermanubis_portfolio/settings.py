@@ -26,7 +26,7 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'dp2*b!-)5$9_=cu(q@+3=up+xl_34&2crp0&$bf^dn_j$tg3@1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '[::1]' 'vermanubisportfolio.herokuapp.com']
 
@@ -41,8 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'music',
     'rest_framework',
-    'frontend'
+    'frontend',
+    'django_extensions'
 ]
+
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

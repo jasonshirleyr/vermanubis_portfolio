@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import About, Music
 from .serializers import AboutSerializer, MusicSerializer
+from .api import AboutViewSet
 
 @api_view(['GET','DELETE', 'UPDATE'])
 def get_delete_update_about(request, pk):
@@ -19,6 +20,21 @@ def get_delete_update_about(request, pk):
     elif request.method == 'DELETE':
         about.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+def get_delete_update_music(request, pk):
+    try:
+        music = Music.objects.get(pk = pk)
+    except Music.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    # get details of music
+    if request.method == 'GET':
+        serializer = MusicSerializer(music)
+        return Response(serializer.data)
+    # delete music
+    elif request.method == 'DELETE':
+        music.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 def get_delete_update_music(request, pk):
     try:
         music = Music.objects.get(pk = pk)
@@ -51,25 +67,6 @@ def get_post_about(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response (serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET','DELETE', 'UPDATE'])
-def get_delete_update_music(request, pk):
-    try:
-        music = Music.objects.get(pk = pk)
-    except Music.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    # get details of music
-    if request.method == 'GET':
-        serializer = MusicSerializer(music)
-        return Response(serializer.data)
-    # delete music
-    elif request.method == 'DELETE':
-        music.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-@api_view(['GET', 'POST'])
 def get_post_music(request):
     #get all music
     if request.method == 'GET':
