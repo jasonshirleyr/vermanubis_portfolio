@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'music',
     'rest_framework',
     'frontend',
-    'django_extensions'
 ]
 
 REST_FRAMEWORK = {
