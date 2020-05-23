@@ -23,12 +23,12 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'dp2*b!-)5$9_=cu(q@+3=up+xl_34&2crp0&$bf^dn_j$tg3@1'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['herokuapp.com']
+ALLOWED_HOSTS = ['']
 
 # Application definition
 
@@ -88,8 +88,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # 'NAME': os.path.join(BASE_DIR, 'db.postgresql_psycopg2'),
         'NAME': 'vermanubis_portfolio',
-        'USER': 'django_admin',
-        'PASSWORD': 'Qpt123!@',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': ''
     }
@@ -136,6 +136,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+# STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 django_heroku.settings(locals())

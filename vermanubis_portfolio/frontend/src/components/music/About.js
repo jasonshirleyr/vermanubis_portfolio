@@ -19,9 +19,11 @@ export class About extends Component {
     return (
       <Fragment>
         <div className="container justify-content-center align-self-center text-center">
-          <h3>ABOUT</h3>
-          <img className="geoff" src="/static/frontend/geoff.jpg"></img>
-          <div>{this.props.about}</div>
+          <div className="heading-frame">
+            <h3>ABOUT</h3>
+            <img className="geoff" src="/static/frontend/geoff.jpg"></img>
+            <div>{this.props.about}</div>
+          </div>
         </div>
       </Fragment>
     );
